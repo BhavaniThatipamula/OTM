@@ -21,13 +21,13 @@ public class TestClient {
 		int choice=0;
 		while(choice!=9)
 		{
-		   System.out.println("1.addTest");
+		   /*System.out.println("1.addTest");
 		   System.out.println("2.updateTest");
 		   System.out.println("3.deleteTest");
 		   System.out.println("4.assignTest");
-		   System.out.println("5.addQuestion");
+		   System.out.println("5.addQuestion");*/
 		   System.out.println("6.updateQuestion");
-		   System.out.println("7.deleteQuestion");
+//		   System.out.println("7.deleteQuestion");
 		   System.out.println("8.View Question ");
 		   System.out.println("9.Exit ");
 		   System.out.println("Enter the choice");
