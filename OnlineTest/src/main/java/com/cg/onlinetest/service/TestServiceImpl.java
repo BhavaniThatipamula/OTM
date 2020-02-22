@@ -25,7 +25,6 @@ public class TestServiceImpl implements TestService{
 		{
 			throw new OnlineTestException("Id should contain 4 digits");
 		}
-		 
 		
 		
 		return testdao.updateQuestion(testId, question);
@@ -35,7 +34,7 @@ public class TestServiceImpl implements TestService{
 	 public Question updateQuestion1(int questionId,Question question1)throws OnlineTestException{
 		  
 		 String questionid=String.valueOf(questionId);
-		 boolean flag=questionid.matches("[0-9]{2}");
+		 boolean flag=questionid.matches("[0-9]{4}");
 		 
 		 if(!flag)
 		 {

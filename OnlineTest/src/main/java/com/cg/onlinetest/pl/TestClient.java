@@ -1,4 +1,5 @@
 package com.cg.onlinetest.pl;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -19,40 +20,36 @@ public class TestClient {
 		
 		Set<Question> set=null;
 		int choice=0;
-		while(choice!=9)
+		int testId=0;
+	     
+	    int questionId=0;
+		 
+		
+		
+		while(choice!=3)
 		{
-		   /*System.out.println("1.addTest");
-		   System.out.println("2.updateTest");
-		   System.out.println("3.deleteTest");
-		   System.out.println("4.assignTest");
-		   System.out.println("5.addQuestion");*/
-		   System.out.println("6.updateQuestion");
-//		   System.out.println("7.deleteQuestion");
-		   System.out.println("8.View Question ");
-		   System.out.println("9.Exit ");
-		   System.out.println("Enter the choice");
+			try
+			{
+		   System.out.println("1.updateQuestion");
+//		   
+		   System.out.println("2.View Question ");
+		   System.out.println("3.Exit ");
+		   System.out.println("Enter the choice"); 
 		   choice=scanner.nextInt(); 
 		    
-		    int testId=0;
-		     
-		    int questionId=0;
+		    
 		    
 		    switch(choice)
 		    {
-		    case 6:
+		    case 1:
 		    	
-		    	   try
-		    	   {
+		    	 
 		    		 String []questionOptions = new String[10];
-		    	    System.out.println("Enter the testId");
+		    	    System.out.println("Enter the 4 digit testId");
 		    	    int testid=scanner.nextInt();
-		    	    
-		    	   
-		    	   
-		    		 
+		  
 		    		System.out.println("Enter the question id to update");
 		    		questionId=scanner.nextInt();
-		    		
 		    		
 		    		System.out.println("Enter the 4 question options");
 		    		for(int i=0;i<=4;i++)
@@ -75,9 +72,11 @@ public class TestClient {
 		    		 
 		    		 
 		    		 question=testservice.updateQuestion(testid, question);
-		    		 System.out.println("updated questionId is " +questionId);
-		    		 System.out.println("Enter the question options");
-		    		 for(int i=0;i<4;i++)
+		    		 System.out.println("updated questionId is "+questionId);
+		  
+		    		 System.out.println("update the question options");
+		    		 scanner.nextLine();
+		    		 for(int i=1;i<=4;i++)
 		    		 {
 		    		 System.out.println(questionOptions[i]);
 		    		 }
@@ -87,45 +86,50 @@ public class TestClient {
 		    		 System.out.println("updated questionanswer is " +questionanswer);
 		    		 System.out.println("updated questionmarks is " +questionmarks);
 		    		 
-		    		 
-		    		}
-		    		 
-		    		
-		    	catch(OnlineTestException e)
-		    	  {
-		    		System.err.println(e.getMessage());
-		    	  }
-		    	   break;
+		    	     break;
 		     
 		    	   
-		    case  8 :  
+		    case  2 :  
 		    	      System.out.println(" Enter Test Id ");
 		    	   testId= scanner.nextInt();
 		    	      
-		    	try
-		    	{
+		    	
 		    		set=testservice.findAllQuestion(testId);
 		    		for(Question ts : set)
 		    		{
 		    			System.out.println(ts);
 		    		}
 		    		
-		    	}
-		    	catch(Exception e)
-		    	{
-		    		System.err.println(e.getMessage());
-		    	}
+		    	
+		    	
 		    	break; 	   
-		    case 9:
+		    case 3:
 		    	
 		    	 System.out.println("exit");
 		    	
-		   
+		    }
+		    
+		    
 		    	 
 		    }
-		   
+		
+		catch(InputMismatchException e) {
+     	   scanner.nextLine();
+ 		   System.err.println("Id Should contain only digits but not alphabets"); 
+ 		   
+ 	   }
+		catch(OnlineTestException e)
+  	  {
+  		System.err.println(e.getMessage());
+  	  }
+		catch(Exception e)
+    	{
+    		System.err.println(e.getMessage());
+    	}
+		}
+	} 
 		}
 
-	}
+	
 
-}
+
