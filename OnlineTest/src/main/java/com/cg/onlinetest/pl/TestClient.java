@@ -30,8 +30,7 @@ public class TestClient {
 		{
 			try
 			{
-		   System.out.println("1.updateQuestion");
-//		   
+		   System.out.println("1.updateQuestion");	   
 		   System.out.println("2.View Question ");
 		   System.out.println("3.Exit ");
 		   System.out.println("Enter the choice"); 
