@@ -16,22 +16,56 @@ public class TestServiceImpl implements TestService{
 	
 
 	@Override
-	public Question updateQuestion(int testId, Question question) throws OnlineTestException {
+	public boolean checkIfTestIdExists(int testId) throws OnlineTestException {
 		
 		String testid=String.valueOf(testId);
 		boolean flag=testid.matches("[0-9]{4}");
+		boolean testIdExists=false;
 		
-		if(!flag)
-		{
-			throw new OnlineTestException("Id should contain 4 digits");
+		if(flag)
+		{	
+			boolean result=testdao.testTestid(testId);
+			if(!result)
+			{
+				throw new OnlineTestException("Id not found");
+			}else {
+				testIdExists = true;
+			}
+			
+		}else {
+			throw new OnlineTestException("Id should contain 4 digits ");
 		}
 		
+		return testIdExists;
 		
-		return testdao.updateQuestion(testId, question);
+	}
+	
+	@Override
+	public boolean checkifQuestionIdExists(int questionId, int testId) throws OnlineTestException{
+		String stringQuestionId=String.valueOf(questionId);
+		boolean flag=stringQuestionId.matches("[0-9]{4}");
+		boolean questionIdExists=false;
+		
+		if(flag)
+		{	
+			boolean result=testdao.testQuestionId(questionId, testId);
+			if(!result)
+			{
+				throw new OnlineTestException("Question Id not found");
+			}else {
+				questionIdExists = true;
+			}
+			
+		}else {
+			throw new OnlineTestException("Id should contain 4 digits ");
+		}
+		
+		return questionIdExists;
+		
 	}
 
 	 @Override
-	 public Question updateQuestion1(int questionId,Question question1)throws OnlineTestException{
+	 public Question testQuestionId(int questionId,Question question1)throws OnlineTestException{
 		  
 		 String questionid=String.valueOf(questionId);
 		 boolean flag=questionid.matches("[0-9]{4}");
@@ -40,7 +74,7 @@ public class TestServiceImpl implements TestService{
 		 {
 			 throw new OnlineTestException("Question Id should contain 4 digits");
 		 }
-		 return testdao.updateQuestion(questionId, question1);
+		 return question1;
 	 }
 
 
@@ -50,6 +84,11 @@ public class TestServiceImpl implements TestService{
 		 Set<Question> set=testdao.findAllQuestion(testId);
 		
 		return set;
+	}
+	
+	@Override
+	public boolean updateQuestion(int testId, Question question) throws OnlineTestException{
+		return testdao.updateQuestion(testId, question);
 	}
 
 	 

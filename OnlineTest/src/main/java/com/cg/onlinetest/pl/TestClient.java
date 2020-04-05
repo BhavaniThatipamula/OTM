@@ -28,14 +28,15 @@ public class TestClient {
 		
 		while(choice!=3)
 		{
-			try
-			{
+			
 		   System.out.println("1.updateQuestion");	   
 		   System.out.println("2.View Question ");
 		   System.out.println("3.Exit ");
+		   try
+			{
 		   System.out.println("Enter the choice"); 
 		   choice=scanner.nextInt(); 
-		    
+
 		    
 		    
 		    switch(choice)
@@ -45,46 +46,49 @@ public class TestClient {
 		    	 
 		    		 String []questionOptions = new String[10];
 		    	    System.out.println("Enter the 4 digit testId");
-		    	    int testid=scanner.nextInt();
-		  
-		    		System.out.println("Enter the question id to update");
-		    		questionId=scanner.nextInt();
+		    	    testId=scanner.nextInt();
+		    	    if(testservice.checkIfTestIdExists(testId)) {
+		    	    	System.out.println("Enter the question id to update");
+			    		questionId=scanner.nextInt();
+			    		question.setQuestionId(questionId);
+			    		
+		    	    }
+		            if(testservice.checkifQuestionIdExists(questionId, testId)) {
+		            	System.out.println("Enter the 4 question options");
+			    		for(int i=0;i<=4;i++)
+			    		{
+			    			questionOptions[i]=scanner.nextLine();
+			    		}
+			    		System.out.println("Enter the question title");
+			    		String questiontitle=scanner.nextLine();
+			    		System.out.println("Enter the question answer");
+			    		int questionanswer=scanner.nextInt();
+			    		System.out.println("Enter the question marks");
+			    		double questionmarks=scanner.nextDouble();
+			    		
+			    		
+			    		 
+			    		 question.setQuestionOptions(questionOptions);
+			    		 question.setQuestionTitle(questiontitle);
+			    		 question.setQuestionAnswer(questionanswer);
+			    		 question.setQuestionMarks(questionmarks);
+			    		 testservice.updateQuestion(testId, question);
+			    		 
+			    		 System.out.println("updated questionId is "+questionId);
+			   		  
+			    		 System.out.println("update the question options");
+			    		 scanner.nextLine();
+			    		 for(int i=1;i<=4;i++)
+			    		 {
+			    		 System.out.println(questionOptions[i]);
+			    		 }
+			    		 
+			    		 
+			    		 System.out.println("updated questiontitle is " +questiontitle);
+			    		 System.out.println("updated questionanswer is " +questionanswer);
+			    		 System.out.println("updated questionmarks is " +questionmarks); 
+		            }
 		    		
-		    		System.out.println("Enter the 4 question options");
-		    		for(int i=0;i<=4;i++)
-		    		{
-		    			questionOptions[i]=scanner.nextLine();
-		    		}
-		    		System.out.println("Enter the question title");
-		    		String questiontitle=scanner.nextLine();
-		    		System.out.println("Enter the question answer");
-		    		int questionanswer=scanner.nextInt();
-		    		System.out.println("Enter the question marks");
-		    		double questionmarks=scanner.nextDouble();
-		    		
-		    		
-		    		 question.setQuestionId(questionId);
-		    		 question.setQuestionOptions(questionOptions);
-		    		 question.setQuestionTitle(questiontitle);
-		    		 question.setQuestionAnswer(questionanswer);
-		    		 question.setQuestionMarks(questionmarks);
-		    		 
-		    		 
-		    		 question=testservice.updateQuestion(testid, question);
-		    		 System.out.println("updated questionId is "+questionId);
-		  
-		    		 System.out.println("update the question options");
-		    		 scanner.nextLine();
-		    		 for(int i=1;i<=4;i++)
-		    		 {
-		    		 System.out.println(questionOptions[i]);
-		    		 }
-		    		 
-		    		 
-		    		 System.out.println("updated questiontitle is " +questiontitle);
-		    		 System.out.println("updated questionanswer is " +questionanswer);
-		    		 System.out.println("updated questionmarks is " +questionmarks);
-		    		 
 		    	     break;
 		     
 		    	   
@@ -105,16 +109,17 @@ public class TestClient {
 		    case 3:
 		    	
 		    	 System.out.println("exit");
+		    	 break;
+		    default:
+		    	System.err.println("Invalid choice please enter the valid choice");
 		    	
-		    }
-		    
-		    
+		    }	    
 		    	 
 		    }
-		
+					
 		catch(InputMismatchException e) {
      	   scanner.nextLine();
- 		   System.err.println("Id Should contain only digits but not alphabets"); 
+ 		   System.err.println("Should contain numericals but not alphabets"); 
  		   
  	   }
 		catch(OnlineTestException e)

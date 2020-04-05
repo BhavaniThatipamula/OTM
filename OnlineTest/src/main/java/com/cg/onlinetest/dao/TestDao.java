@@ -8,7 +8,9 @@ import com.cg.onlinetest.exception.OnlineTestException;
 
 public interface TestDao {
 	
-	public Question updateQuestion(int testId,Question question) throws OnlineTestException;
+	public boolean updateQuestion(int testId, Question question) throws OnlineTestException;
+	public boolean testTestid(int testId) throws OnlineTestException;
 	public Set<Question>  findAllQuestion(int testId) throws OnlineTestException;
+	public boolean testQuestionId(int questionId, int testId) throws OnlineTestException;
 
 }

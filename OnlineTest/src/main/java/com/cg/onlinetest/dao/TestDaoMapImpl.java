@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.cg.onlinetest.bean.Question;
@@ -42,30 +43,15 @@ public class TestDaoMapImpl implements TestDao{
 
 	
 	@Override
-	public Question updateQuestion(int testId, Question question) throws OnlineTestException
+	public boolean updateQuestion(int testId, Question question) throws OnlineTestException
 	{
 		//System.out.println(" Inside Dao "+testId);
-		boolean flag=testmap.containsKey(testId);
-		if(flag)
-		{
-			
-		       Test test= testmap.get(testId);
-		       Set<Question>  set = test.getTestQuestions();
-		       
-		       flag = set.removeIf(p -> p.getQuestionId() == question.getQuestionId() ? true :false);
-		       if( ! flag )
-		       {
-		    	   throw new OnlineTestException(" ID NOT FOUND ");
-		       }
-		       else
-		       {
-		    	  
-		    	   set.add(question);
-		       }
-		}
-		 
-		
-		return question;
+		Test test= testmap.get(testId);
+	    Set<Question>  set = test.getTestQuestions();
+	    set.removeIf(p -> p.getQuestionId() == question.getQuestionId() ? true :false);
+	    set.add(question);
+	    return true;
+
 	}
 
 
@@ -80,6 +66,26 @@ public class TestDaoMapImpl implements TestDao{
 		    set1 = test.getTestQuestions();
 		 }
 		return set1;
+	}
+
+
+	@Override
+	public boolean testTestid(int testId) throws OnlineTestException {
+	
+		boolean flag=false;
+		flag=testmap.containsKey(testId);
+		return flag;
+	}
+	
+	@Override
+	public boolean testQuestionId(int questionId, int testId) throws OnlineTestException {
+	
+		boolean flag=false;
+		Test test=testmap.get(testId);
+		Set<Question> questions=test.getTestQuestions();
+		Optional<Question> option = questions.stream().filter(q->questionId==q.getQuestionId()).findAny();
+		if(option.isPresent()) flag=true;
+		return flag;
 	}
 
 }
